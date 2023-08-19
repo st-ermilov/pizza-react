@@ -1,0 +1,31 @@
+.pagination_container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 50px;
+
+  li > a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    border: 1px solid orange;
+    color: orangered;
+    cursor: pointer;
+
+    &:hover {
+      background: orange;
+      color: white;
+    }
+  }
+
+  :global {
+    .selected a {
+      background: orange;
+      color: white;
+      border-radius: 50%;
+    }
+  }
+}
