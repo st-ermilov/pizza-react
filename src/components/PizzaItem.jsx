@@ -1,11 +1,12 @@
 import React from 'react';
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {addPizza} from "../redux/slices/basketSlice";
 
 const PizzaItem = ({id, title, price, imageUrl, sizes, types}) => {
     const dispatch = useDispatch()
-    const findCount = useSelector(state => state.basket.pizzaList.find((item) => item.id === id))
-    const count = findCount ? findCount.count : 0
+    // const findCount = useSelector(state => state.basket.pizzaList.find((item) => item.id === id))
+    // const count = findCount ? findCount.count : 0
+    const [count, setCount] = React.useState(0)
     const [activeType, setActiveType] = React.useState(0)
     const [activeSize, setActiveSize] = React.useState(0)
     const doughType = ['тонкое', 'традиционное']
@@ -62,7 +63,7 @@ const PizzaItem = ({id, title, price, imageUrl, sizes, types}) => {
                             fill="white"
                         />
                     </svg>
-                    <span>Добавить</span>
+                    <span onClick={() => setCount(count + 1)}>Добавить</span>
                     {count > 0 && <i>{count}</i>}
                 </div>
             </div>

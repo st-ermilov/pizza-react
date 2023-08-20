@@ -4,7 +4,7 @@ import {decrementPizza, incrementPizza, removePizza} from "../redux/slices/baske
 
 const BasketPizzaItem = ({id, title, price, imageUrl, sizes, types}) => {
     const dispatch = useDispatch()
-    const findCount = useSelector(state => state.basket.pizzaList.find((item) => item.id === id))
+    const findCount = useSelector(state => state.basket.pizzaList.find((item) => item.id === id && item.sizes === sizes && item.types === types))
     const count = findCount ? findCount.count : 0
     const incPizza = () => {
         dispatch(incrementPizza({id, types, sizes}))

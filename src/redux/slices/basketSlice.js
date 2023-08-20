@@ -35,7 +35,9 @@ const basketSlice = createSlice({
             if (findItem) {
                 findItem.count++
             }
-
+            state.totalPrice = state.pizzaList.reduce((sum, obj) => {
+                return obj.price * obj.count + sum
+            }, 0)
         },
 
 
@@ -58,8 +60,8 @@ const basketSlice = createSlice({
         removePizza: (state, action) => {
             state.pizzaList = state.pizzaList.filter((pizza) =>
                 pizza.id !== action.payload.id
-                && pizza.types !== action.payload.types
-                && pizza.sizes !== action.payload.sizes
+                || pizza.types !== action.payload.types
+                || pizza.sizes !== action.payload.sizes
             )
             state.totalPrice = state.pizzaList.reduce((sum, obj) => {
                 return obj.price * obj.count + sum

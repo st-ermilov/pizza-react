@@ -30,7 +30,6 @@ const Home = () => {
         ? `search=${search}`
         : ``}`
 
-
     const currentPage = useSelector(state => state.filter.currentPage)
     const changePage = (number) => {
         dispatch(setCurrentPage(number))
@@ -40,15 +39,15 @@ const Home = () => {
     const fetchParams = `${pagesParams}&${categoryParams}&${sortParams}&${searchParams}`
 
     React.useEffect(() => {
-        setLoading(true)
-        axios
-            .get(`https://647734419233e82dd53b241b.mockapi.io/pizza_array?${fetchParams}`)
-            .then((response) => {
-                setPizzas(response.data)
-                setLoading(false)
-            })
+        const fetchData = async () => {
+            setLoading(true)
+            const response = await axios.get(`https://647734419233e82dd53b241b.mockapi.io/pizza_array?${fetchParams}`)
+            setPizzas(response.data)
+            setLoading(false)
+        }
+        fetchData()
         window.scrollTo(0, 0)
-    }, [category, sort, search, currentPage])
+    }, [fetchParams])
 
     return (
         <div className="content">

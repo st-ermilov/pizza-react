@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import BasketPizzaItem from "../components/basketPizzaItem";
 import {clearBasket} from "../redux/slices/basketSlice";
+import EmptyBasket from "../components/emptyBasket";
 
 const Basket = ({id, types, sizes}) => {
     const dispatch = useDispatch()
@@ -18,6 +19,9 @@ const Basket = ({id, types, sizes}) => {
         dispatch(clearBasket())
     }
 
+    if (!totalPrice) {
+        return <EmptyBasket/>
+    }
 
     return (
         <div className="content">
