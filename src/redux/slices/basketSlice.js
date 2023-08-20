@@ -12,9 +12,7 @@ const basketSlice = createSlice({
 
         addPizza: (state, action) => {
             const findItem = state.pizzaList.find((item) =>
-                item.id === action.payload.id
-                && item.types === action.payload.types
-                && item.sizes === action.payload.sizes
+                item.basketId === action.payload.basketId
             )
             if (findItem) {
                 findItem.count++
@@ -28,9 +26,7 @@ const basketSlice = createSlice({
 
         incrementPizza: (state, action) => {
             const findItem = state.pizzaList.find((item) =>
-                item.id === action.payload.id
-                && item.types === action.payload.types
-                && item.sizes === action.payload.sizes
+                item.basketId === action.payload.basketId
             )
             if (findItem) {
                 findItem.count++
@@ -43,9 +39,7 @@ const basketSlice = createSlice({
 
         decrementPizza: (state, action) => {
             const findItem = state.pizzaList.find((item) =>
-                item.id === action.payload.id
-                && item.types === action.payload.types
-                && item.sizes === action.payload.sizes
+                item.basketId === action.payload.basketId
             )
 
             if (findItem && findItem.count > 1) {
@@ -59,9 +53,7 @@ const basketSlice = createSlice({
 
         removePizza: (state, action) => {
             state.pizzaList = state.pizzaList.filter((pizza) =>
-                pizza.id !== action.payload.id
-                || pizza.types !== action.payload.types
-                || pizza.sizes !== action.payload.sizes
+                pizza.basketId !== action.payload.basketId
             )
             state.totalPrice = state.pizzaList.reduce((sum, obj) => {
                 return obj.price * obj.count + sum

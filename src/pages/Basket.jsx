@@ -16,7 +16,8 @@ const Basket = ({id, types, sizes}) => {
     }, 0)
 
     const clearAll = () => {
-        dispatch(clearBasket())
+        if (window.confirm('Вы точно хотите убрать все товары из корзины?'))
+            dispatch(clearBasket())
     }
 
     if (!totalPrice) {

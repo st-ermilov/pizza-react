@@ -2,10 +2,8 @@ import React from 'react';
 import {useDispatch} from "react-redux";
 import {addPizza} from "../redux/slices/basketSlice";
 
-const PizzaItem = ({id, title, price, imageUrl, sizes, types}) => {
+const PizzaItem = ({id, title, price, imageUrl, sizes, types, basketId}) => {
     const dispatch = useDispatch()
-    // const findCount = useSelector(state => state.basket.pizzaList.find((item) => item.id === id))
-    // const count = findCount ? findCount.count : 0
     const [count, setCount] = React.useState(0)
     const [activeType, setActiveType] = React.useState(0)
     const [activeSize, setActiveSize] = React.useState(0)
@@ -19,7 +17,8 @@ const PizzaItem = ({id, title, price, imageUrl, sizes, types}) => {
             imageUrl,
             price,
             types: doughType[activeType],
-            sizes: sizes[activeSize]
+            sizes: sizes[activeSize],
+            basketId: `${id + sizes[activeSize]}`
         }
         dispatch(addPizza(pizzaItem))
     }

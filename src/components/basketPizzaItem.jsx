@@ -2,20 +2,20 @@ import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {decrementPizza, incrementPizza, removePizza} from "../redux/slices/basketSlice";
 
-const BasketPizzaItem = ({id, title, price, imageUrl, sizes, types}) => {
+const BasketPizzaItem = ({id, title, price, imageUrl, sizes, types, basketId}) => {
     const dispatch = useDispatch()
-    const findCount = useSelector(state => state.basket.pizzaList.find((item) => item.id === id && item.sizes === sizes && item.types === types))
+    const findCount = useSelector(state => state.basket.pizzaList.find((item) => item.basketId === basketId))
     const count = findCount ? findCount.count : 0
     const incPizza = () => {
-        dispatch(incrementPizza({id, types, sizes}))
+        dispatch(incrementPizza({basketId}))
     }
     const decPizza = () => {
-        dispatch(decrementPizza({id, types, sizes}))
+        dispatch(decrementPizza({basketId}))
     }
 
     const deletePizza = () => {
         if (window.confirm('Вы хотите удалить эту позицию из корзины?')) {
-            dispatch(removePizza({id, types, sizes}))
+            dispatch(removePizza({basketId}))
         }
     }
 
