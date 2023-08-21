@@ -2,7 +2,7 @@ import React from 'react';
 import {useDispatch} from "react-redux";
 import {addPizza} from "../redux/slices/basketSlice";
 
-const PizzaItem = ({id, title, price, imageUrl, sizes, types, basketId}) => {
+const PizzaItem = ({id, title, price, imageUrl, sizes, types}) => {
     const dispatch = useDispatch()
     const [count, setCount] = React.useState(0)
     const [activeType, setActiveType] = React.useState(0)
@@ -37,7 +37,7 @@ const PizzaItem = ({id, title, price, imageUrl, sizes, types, basketId}) => {
                         types.map((item, index) => <li
                             key={index}
                             onClick={() => setActiveType(index)}
-                            className={activeType === item ? "active" : ''}>{doughType[item]}</li>)
+                            className={activeType === index ? "active" : ''}>{doughType[item]}</li>)
                     }
                 </ul>
                 <ul>

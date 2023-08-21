@@ -3,10 +3,11 @@ import pizza_logo from '../assets/img/pizza-logo.svg'
 import {Link} from "react-router-dom";
 import SearchInput from "./SearchInput";
 import {useSelector} from "react-redux";
+import {selectPizzaList, selectTotalPrice} from "../redux/slices/basketSlice";
 
 const Header = () => {
-    const totalPrice = useSelector((state) => state.basket.totalPrice)
-    const pizzaList = useSelector(state => state.basket.pizzaList)
+    const totalPrice = useSelector(selectTotalPrice)
+    const pizzaList = useSelector(selectPizzaList)
     const allPizzas = pizzaList.reduce((sum, item) => {
         return sum + item.count
     }, 0)

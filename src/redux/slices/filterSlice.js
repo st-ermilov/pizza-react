@@ -29,6 +29,12 @@ const filterSlice = createSlice({
     }
 })
 
+export const selectCategory = (state) => state.filter.category
+export const selectSort = (state) => state.filter.sort
+export const selectSearch = (state) => state.filter.search
+export const selectCurrentPage = (state) => state.filter.currentPage
+
+
 export const {
     setCategory,
     setSort,

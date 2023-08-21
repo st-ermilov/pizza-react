@@ -1,10 +1,10 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {decrementPizza, incrementPizza, removePizza} from "../redux/slices/basketSlice";
+import {decrementPizza, incrementPizza, removePizza, selectFindItem} from "../redux/slices/basketSlice";
 
 const BasketPizzaItem = ({id, title, price, imageUrl, sizes, types, basketId}) => {
     const dispatch = useDispatch()
-    const findCount = useSelector(state => state.basket.pizzaList.find((item) => item.basketId === basketId))
+    const findCount = useSelector(selectFindItem(basketId))
     const count = findCount ? findCount.count : 0
     const incPizza = () => {
         dispatch(incrementPizza({basketId}))

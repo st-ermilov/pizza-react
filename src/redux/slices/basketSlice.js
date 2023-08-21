@@ -67,6 +67,11 @@ const basketSlice = createSlice({
     }
 })
 
+export const selectPizzaList = state => state.basket.pizzaList
+export const selectTotalPrice = state => state.basket.totalPrice
+
+export const selectFindItem = (basketId) => (state) => state.basket.pizzaList.find((item) => item.basketId === basketId)
+
 export const {
     addPizza,
     removePizza,

@@ -1,36 +1,37 @@
 import React from 'react';
 import Categories from "../components/Categories";
 import Sort from "../components/Sort";
-import PizzaSkeleton from "../components/PizzaSkeleton";
 import PizzaItem from "../components/PizzaItem";
+import PizzaSkeleton from "../components/PizzaSkeleton";
 import Pagination from "../components/Pagination";
 import {useDispatch, useSelector} from "react-redux";
-import {setCurrentPage} from "../redux/slices/filterSlice";
-import axios from "axios";
+import {selectCategory, selectCurrentPage, selectSearch, selectSort, setCurrentPage} from "../redux/slices/filterSlice";
+import {fetchPizzas, selectPizzas, selectStatus} from '../redux/slices/pizzasSlice'
+import Error from "../components/Error";
 
 const Home = () => {
     const dispatch = useDispatch()
+    const pizzas = useSelector(selectPizzas)
 
-    const [pizzas, setPizzas] = React.useState([])
-    const [loading, setLoading] = React.useState(true)
+    const status = useSelector(selectStatus)
 
 
-    const category = useSelector((state) => state.filter.category)
+    const category = useSelector(selectCategory)
     const categoryParams = `${category > 0 ? `category=${category}` : ``}`
 
 
-    const sort = useSelector((state) => state.filter.sort)
+    const sort = useSelector(selectSort)
     const sortParams = `${sort.sortProp.includes('-')
         ? `sortBy=${sort.sortProp.replace('-', '')}&order=desc`
         : `sortBy=${sort.sortProp}&order=asc`}`
 
 
-    const search = useSelector((state) => state.filter.search)
+    const search = useSelector(selectSearch)
     const searchParams = `${search !== ''
         ? `search=${search}`
         : ``}`
 
-    const currentPage = useSelector(state => state.filter.currentPage)
+    const currentPage = useSelector(selectCurrentPage)
     const changePage = (number) => {
         dispatch(setCurrentPage(number))
     }
@@ -40,14 +41,12 @@ const Home = () => {
 
     React.useEffect(() => {
         const fetchData = async () => {
-            setLoading(true)
-            const response = await axios.get(`https://647734419233e82dd53b241b.mockapi.io/pizza_array?${fetchParams}`)
-            setPizzas(response.data)
-            setLoading(false)
+            dispatch(fetchPizzas({fetchParams}))
         }
         fetchData()
+
         window.scrollTo(0, 0)
-    }, [fetchParams])
+    }, [category, sort, currentPage, search])
 
     return (
         <div className="content">
@@ -58,9 +57,10 @@ const Home = () => {
                 </div>
                 <h2 className="content__title">Все пиццы</h2>
                 <div className="content__items__pizza">
-                    {loading
+                    {status === 'error' ? <Error/> : (status === 'loading'
                         ? [...new Array(6)].map((_, index) => <PizzaSkeleton key={index}/>)
-                        : pizzas.map((item) => <PizzaItem key={item.id} {...item}/>)}
+                        : pizzas.map((item) => <PizzaItem key={item.id} {...item}/>))}
+
                 </div>
                 <Pagination changePage={changePage}/>
             </div>

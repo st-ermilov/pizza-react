@@ -2,15 +2,15 @@ import React from 'react';
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import BasketPizzaItem from "../components/basketPizzaItem";
-import {clearBasket} from "../redux/slices/basketSlice";
+import {clearBasket, selectPizzaList, selectTotalPrice} from "../redux/slices/basketSlice";
 import EmptyBasket from "../components/emptyBasket";
 
 const Basket = ({id, types, sizes}) => {
     const dispatch = useDispatch()
     const findCount = useSelector(state => state.basket.pizzaList.find((item) => item.id === id && item.types === types && item.sizes === sizes))
     const count = findCount ? findCount.count : 0
-    const pizzaList = useSelector(state => state.basket.pizzaList)
-    const totalPrice = useSelector(state => state.basket.totalPrice)
+    const pizzaList = useSelector(selectPizzaList)
+    const totalPrice = useSelector(selectTotalPrice)
     const allPizzas = pizzaList.reduce((sum, item) => {
         return sum + item.count
     }, 0)
