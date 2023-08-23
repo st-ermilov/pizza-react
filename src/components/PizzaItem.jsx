@@ -1,6 +1,7 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
 import {addPizza} from "../redux/slices/basketSlice";
+import {Link} from "react-router-dom";
 
 const PizzaItem = ({id, title, price, imageUrl, sizes, types}) => {
     const dispatch = useDispatch()
@@ -25,12 +26,12 @@ const PizzaItem = ({id, title, price, imageUrl, sizes, types}) => {
 
     return (
         <div className="pizza-block">
-            <h4 className="pizza-block__title">{title}</h4>
-            <img
+            <Link to={`/pizza/${id}`}><h4 className="pizza-block__title">{title}</h4></Link>
+            <Link to={`/pizza/${id}`}> <img
                 className="pizza-block__image"
                 src={imageUrl}
                 alt="Pizza"
-            />
+            /></Link>
             <div className="pizza-block__selector">
                 <ul>
                     {
