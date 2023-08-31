@@ -4,35 +4,35 @@ import Sort from "../components/Sort";
 import PizzaItem from "../components/PizzaItem";
 import PizzaSkeleton from "../components/PizzaSkeleton";
 import Pagination from "../components/Pagination";
-import {useDispatch, useSelector} from "react-redux";
 import {selectCategory, selectCurrentPage, selectSearch, selectSort, setCurrentPage} from "../redux/slices/filterSlice";
 import {fetchPizzas, selectPizzas, selectStatus} from '../redux/slices/pizzasSlice'
 import Error from "../components/Error";
+import {useAppDispatch, useAppSelector} from "../hooks/redux_toolkit_hooks";
 
-const Home = () => {
-    const dispatch = useDispatch()
-    const pizzas = useSelector(selectPizzas)
+const Home: React.FC = () => {
+    const dispatch = useAppDispatch()
+    const pizzas = useAppSelector(selectPizzas)
 
-    const status = useSelector(selectStatus)
+    const status = useAppSelector(selectStatus)
 
 
-    const category = useSelector(selectCategory)
+    const category = useAppSelector(selectCategory)
     const categoryParams = `${category > 0 ? `category=${category}` : ``}`
 
 
-    const sort = useSelector(selectSort)
+    const sort = useAppSelector(selectSort)
     const sortParams = `${sort.sortProp.includes('-')
         ? `sortBy=${sort.sortProp.replace('-', '')}&order=desc`
         : `sortBy=${sort.sortProp}&order=asc`}`
 
 
-    const search = useSelector(selectSearch)
+    const search = useAppSelector(selectSearch)
     const searchParams = `${search !== ''
         ? `search=${search}`
         : ``}`
 
-    const currentPage = useSelector(selectCurrentPage)
-    const changePage = (number) => {
+    const currentPage = useAppSelector(selectCurrentPage)
+    const changePage = (number: number) => {
         dispatch(setCurrentPage(number))
     }
     const pagesParams = `page=${currentPage}&limit=${4}`
@@ -59,7 +59,7 @@ const Home = () => {
                 <div className="content__items__pizza">
                     {status === 'error' ? <Error/> : (status === 'loading'
                         ? [...new Array(6)].map((_, index) => <PizzaSkeleton key={index}/>)
-                        : pizzas.map((item) => <PizzaItem key={item.id} {...item}/>))}
+                        : pizzas.map((item: any) => <PizzaItem key={item.id} {...item}/>))}
 
                 </div>
                 <Pagination changePage={changePage}/>

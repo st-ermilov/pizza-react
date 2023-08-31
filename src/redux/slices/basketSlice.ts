@@ -1,6 +1,23 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {RootState} from "../store";
 
-const initialState = {
+export type TypePizzaItem = {
+    id: string,
+    title: string,
+    price: number,
+    imageUrl: string,
+    size: number,
+    type: string,
+    count: number,
+    basketId: string
+}
+
+type TypeBasketInitialState = {
+    totalPrice: number,
+    pizzaList: TypePizzaItem[]
+}
+
+const initialState: TypeBasketInitialState = {
     totalPrice: 0,
     pizzaList: []
 }
@@ -10,7 +27,7 @@ const basketSlice = createSlice({
     initialState,
     reducers: {
 
-        addPizza: (state, action) => {
+        addPizza: (state, action: PayloadAction<TypePizzaItem>) => {
             const findItem = state.pizzaList.find((item) =>
                 item.basketId === action.payload.basketId
             )
@@ -24,9 +41,9 @@ const basketSlice = createSlice({
             }, 0)
         },
 
-        incrementPizza: (state, action) => {
+        incrementPizza: (state, action: PayloadAction<string>) => {
             const findItem = state.pizzaList.find((item) =>
-                item.basketId === action.payload.basketId
+                item.basketId === action.payload
             )
             if (findItem) {
                 findItem.count++
@@ -37,9 +54,9 @@ const basketSlice = createSlice({
         },
 
 
-        decrementPizza: (state, action) => {
+        decrementPizza: (state, action: PayloadAction<string>) => {
             const findItem = state.pizzaList.find((item) =>
-                item.basketId === action.payload.basketId
+                item.basketId === action.payload
             )
 
             if (findItem && findItem.count > 1) {
@@ -51,9 +68,9 @@ const basketSlice = createSlice({
             }, 0)
         },
 
-        removePizza: (state, action) => {
+        removePizza: (state, action: PayloadAction<string>) => {
             state.pizzaList = state.pizzaList.filter((pizza) =>
-                pizza.basketId !== action.payload.basketId
+                pizza.basketId !== action.payload
             )
             state.totalPrice = state.pizzaList.reduce((sum, obj) => {
                 return obj.price * obj.count + sum
@@ -67,10 +84,10 @@ const basketSlice = createSlice({
     }
 })
 
-export const selectPizzaList = state => state.basket.pizzaList
-export const selectTotalPrice = state => state.basket.totalPrice
+export const selectPizzaList = (state: RootState) => state.basket.pizzaList
+export const selectTotalPrice = (state: RootState) => state.basket.totalPrice
 
-export const selectFindItem = (basketId) => (state) => state.basket.pizzaList.find((item) => item.basketId === basketId)
+export const selectFindItem = (basketId: string) => (state: RootState) => state.basket.pizzaList.find((item: TypePizzaItem) => item.basketId === basketId)
 
 export const {
     addPizza,

@@ -2,7 +2,7 @@ import React from 'react';
 import not_found from '../assets/img/sad.svg'
 import styles from '../styles/components/nof_found.module.scss'
 
-const NotFound = () => {
+const NotFound: React.FC = () => {
     return (
         <div className={styles.container}>
             <img src={not_found} alt=""/>

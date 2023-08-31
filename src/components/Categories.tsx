@@ -1,14 +1,14 @@
 import React from 'react';
-import {useDispatch, useSelector} from "react-redux";
 import {setCategory} from "../redux/slices/filterSlice";
+import {useAppDispatch, useAppSelector} from "../hooks/redux_toolkit_hooks";
 
-const Categories = () => {
-    const dispatch = useDispatch()
-    const categoriesArray = ['Все', 'Мясные', 'Вегетарианские', 'Гриль', 'Острые', 'Закрытые',]
-    // const [activeCategory, setActiveCategory] = React.useState(0)
-    const category = useSelector((state) => state.filter.category)
+const Categories: React.FC = () => {
+    const dispatch = useAppDispatch()
+    const categoriesArray: string[] = ['Все', 'Мясные', 'Вегетарианские', 'Гриль', 'Острые', 'Закрытые',]
 
-    const changeCategory = (i) => {
+    const category = useAppSelector((state) => state.filter.category)
+
+    const changeCategory = (i: number) => {
         dispatch(setCategory(i))
     }
 

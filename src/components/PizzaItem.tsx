@@ -1,9 +1,17 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
-import {addPizza} from "../redux/slices/basketSlice";
+import {addPizza, TypePizzaItem} from "../redux/slices/basketSlice";
 import {Link} from "react-router-dom";
 
-const PizzaItem = ({id, title, price, imageUrl, sizes, types}) => {
+type TypePizzaItemProps = {
+    id: string;
+    title: string,
+    price: number,
+    imageUrl: string,
+    sizes: number[],
+    types: number[],
+}
+const PizzaItem: React.FC<TypePizzaItemProps> = ({id, title, price, imageUrl, sizes, types}) => {
     const dispatch = useDispatch()
     const [count, setCount] = React.useState(0)
     const [activeType, setActiveType] = React.useState(0)
@@ -12,16 +20,18 @@ const PizzaItem = ({id, title, price, imageUrl, sizes, types}) => {
 
 
     const addPizzaItem = () => {
-        const pizzaItem = {
+        const pizzaItem: TypePizzaItem = {
             id,
             title,
             imageUrl,
             price,
-            types: doughType[activeType],
-            sizes: sizes[activeSize],
-            basketId: `${id + sizes[activeSize]}`
+            type: doughType[activeType],
+            size: sizes[activeSize],
+            basketId: `${id + sizes[activeSize]}`,
+            count: 0
         }
         dispatch(addPizza(pizzaItem))
+        setCount(count + 1)
     }
 
     return (
@@ -63,7 +73,7 @@ const PizzaItem = ({id, title, price, imageUrl, sizes, types}) => {
                             fill="white"
                         />
                     </svg>
-                    <span onClick={() => setCount(count + 1)}>Добавить</span>
+                    <span>Добавить</span>
                     {count > 0 && <i>{count}</i>}
                 </div>
             </div>

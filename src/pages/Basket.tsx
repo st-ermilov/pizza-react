@@ -1,17 +1,15 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import BasketPizzaItem from "../components/basketPizzaItem";
-import {clearBasket, selectPizzaList, selectTotalPrice} from "../redux/slices/basketSlice";
-import EmptyBasket from "../components/emptyBasket";
+import BasketPizzaItem from "../components/BasketPizzaItem";
+import {clearBasket, selectPizzaList, selectTotalPrice, TypePizzaItem} from "../redux/slices/basketSlice";
+import EmptyBasket from "../components/EmptyBasket";
 
-const Basket = ({id, types, sizes}) => {
+const Basket: React.FC = () => {
     const dispatch = useDispatch()
-    const findCount = useSelector(state => state.basket.pizzaList.find((item) => item.id === id && item.types === types && item.sizes === sizes))
-    const count = findCount ? findCount.count : 0
-    const pizzaList = useSelector(selectPizzaList)
-    const totalPrice = useSelector(selectTotalPrice)
-    const allPizzas = pizzaList.reduce((sum, item) => {
+    const pizzaList: TypePizzaItem[] = useSelector(selectPizzaList)
+    const totalPrice: number = useSelector(selectTotalPrice)
+    const allPizzas = pizzaList.reduce((sum: number, item: any) => {
         return sum + item.count
     }, 0)
 
@@ -63,7 +61,8 @@ const Basket = ({id, types, sizes}) => {
                     </div>
                     <div className="content__items">
                         {
-                            pizzaList.map(item => <BasketPizzaItem key={item.id + item.sizes + item.types} {...item}/>)
+                            pizzaList.map((item: TypePizzaItem) => <BasketPizzaItem
+                                key={item.id + item.size + item.type} {...item}/>)
 
                         }
                     </div>

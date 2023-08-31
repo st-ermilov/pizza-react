@@ -2,20 +2,30 @@ import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {decrementPizza, incrementPizza, removePizza, selectFindItem} from "../redux/slices/basketSlice";
 
-const BasketPizzaItem = ({id, title, price, imageUrl, sizes, types, basketId}) => {
+type TypeBasketPizzaItem = {
+    id: string,
+    title: string,
+    price: number,
+    imageUrl: string,
+    size: number,
+    type: string,
+    basketId: string,
+    count: number
+}
+const BasketPizzaItem: React.FC<TypeBasketPizzaItem> = ({id, title, price, imageUrl, size, type, basketId}) => {
     const dispatch = useDispatch()
     const findCount = useSelector(selectFindItem(basketId))
     const count = findCount ? findCount.count : 0
     const incPizza = () => {
-        dispatch(incrementPizza({basketId}))
+        dispatch(incrementPizza(basketId))
     }
     const decPizza = () => {
-        dispatch(decrementPizza({basketId}))
+        dispatch(decrementPizza(basketId))
     }
 
     const deletePizza = () => {
         if (window.confirm('Вы хотите удалить эту позицию из корзины?')) {
-            dispatch(removePizza({basketId}))
+            dispatch(removePizza(basketId))
         }
     }
 
@@ -30,7 +40,7 @@ const BasketPizzaItem = ({id, title, price, imageUrl, sizes, types, basketId}) =
             </div>
             <div className="cart__item-info">
                 <h3>{title}</h3>
-                <p>{types} тесто, {sizes} см.</p>
+                <p>{type} тесто, {size} см.</p>
             </div>
             <div className="cart__item-count">
                 <div onClick={decPizza} className="button button--outline button--circle cart__item-count-minus">

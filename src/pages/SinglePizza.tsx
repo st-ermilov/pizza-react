@@ -1,16 +1,20 @@
-import React from 'react';
+import * as React from 'react';
 import axios from "axios";
+// @ts-ignore
 import styles from '../styles/pages/single_pizza.module.scss'
 import {useNavigate, useParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {addPizza} from "../redux/slices/basketSlice";
+import {addPizza, TypePizzaItem} from "../redux/slices/basketSlice";
 import Loader from "../components/Loader";
+import {TypePrimaryPizzaItem} from "../redux/slices/pizzasSlice";
 
-const SinglePizza = () => {
+const SinglePizza: React.FC = () => {
     const dispatch = useDispatch()
-    const doughType = ['тонкое', 'традиционное']
+    const doughType: string[] = ['тонкое', 'традиционное']
     const [count, setCount] = React.useState(0)
-    const [pizza, setPizza] = React.useState()
+
+
+    const [pizza, setPizza] = React.useState<TypePrimaryPizzaItem>()
     const [activeType, setActiveType] = React.useState(0)
     const [activeSize, setActiveSize] = React.useState(0)
 
@@ -28,25 +32,27 @@ const SinglePizza = () => {
             }
         }
         getSinglePizza()
-        window.scrollTo(0, 200)
+        window.scrollTo(0, 100)
     }, [id])
 
     if (!pizza) {
         return <Loader/>
     }
-    // console.log(pizza.id)
+
 
     const addPizzaItem = () => {
-        const pizzaItem = {
+        let pizzaItem: TypePizzaItem = {
             id: pizza.id,
             title: pizza.title,
             imageUrl: pizza.imageUrl,
             price: pizza.price,
-            types: doughType[activeType],
-            sizes: pizza.sizes[activeSize],
-            basketId: `${id + pizza.sizes[activeSize]}`
+            type: doughType[activeType],
+            size: pizza.sizes[activeSize],
+            basketId: `${id ? id + pizza.sizes[activeSize] : ''}`,
+            count: 0
         }
         dispatch(addPizza(pizzaItem))
+        setCount(count + 1)
     }
 
 
@@ -105,7 +111,7 @@ const SinglePizza = () => {
                                     fill="white"
                                 />
                             </svg>
-                            <span onClick={() => setCount(count + 1)}>Добавить</span>
+                            <span>Добавить</span>
                             {count > 0 && <i>{count}</i>}
                         </div>
                     </div>

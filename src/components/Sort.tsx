@@ -1,11 +1,19 @@
 import React from 'react';
-import {setSort} from "../redux/slices/filterSlice";
-import {useDispatch, useSelector} from "react-redux";
+import {setSort, TypeSort} from "../redux/slices/filterSlice";
+import {useAppDispatch, useAppSelector} from "../hooks/redux_toolkit_hooks";
 
+type TypeSortCategory = {
+    name: string,
+    sortProp: 'rating' | 'title' | 'price' | '-rating' | '-title' | '-price'
+}
+type TypePopUp = MouseEvent & {
+    composedPath: Node[]
+}
 const Sort = () => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const [openModal, setOpenModal] = React.useState(false)
-    const sortCategories = [
+
+    const sortCategories: TypeSortCategory[] = [
         {name: `популярности (возр.)`, sortProp: 'rating'},
         {name: 'популярности (убыв.)', sortProp: '-rating'},
         {name: 'цене (возр.)', sortProp: 'price'},
@@ -13,23 +21,22 @@ const Sort = () => {
         {name: 'алфавиту (возр.)', sortProp: 'title'},
         {name: 'алфавиту (убыв.)', sortProp: '-title'}
     ]
-    const sortRef = React.useRef()
+    const sortRef = React.useRef<HTMLDivElement>(null)
 
-    const sort = useSelector((state) =>
+    const sort = useAppSelector((state) =>
         state.filter.sort
     )
-    const changeSort = (sortName) => {
-        dispatch(setSort(sortName))
-    }
 
-    const selectSort = (index) => {
-        changeSort(index)
+
+    const selectSort = (item: TypeSort) => {
+        dispatch(setSort(item))
         setOpenModal(!openModal)
     }
 
     React.useEffect(() => {
-        const closeSortModal = (event) => {
-            if (!event.composedPath().includes(sortRef.current)) {
+        const closeSortModal = (event: MouseEvent) => {
+            const _event = event as TypePopUp
+            if (sortRef.current && !_event.composedPath().includes(sortRef.current)) {
                 setOpenModal(false)
             }
         }
@@ -38,7 +45,7 @@ const Sort = () => {
         /* команда на момент component will unmount
         return () => {}, в данном случае для очистки EventListener*
          */
-        
+
         return () => {
             document.body.removeEventListener('click', closeSortModal)
         }
@@ -63,7 +70,7 @@ const Sort = () => {
                 <b>Сортировка по:</b>
                 <span onClick={() => setOpenModal(!openModal)}>{sort.name}</span>
             </div>
-            <div className={`sort__popup ${openModal === true ? 'show' : ''}`}>
+            <div className={`sort__popup ${openModal ? 'show' : ''}`}>
                 <ul>
                     {sortCategories.map((item, index) =>
                         <li

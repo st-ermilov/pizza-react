@@ -1,30 +1,31 @@
 import React from 'react';
-import debounce from 'debounce'
+// @ts-ignore
+import debounce from 'lodash.debounce'
 import styles from '../styles/components/search_input.module.scss'
 import search_icon from '../assets/img/search_icon.svg'
 import clear_icon from '../assets/img/clear_icon.svg'
 import {useDispatch} from "react-redux";
 import {setSearch} from "../redux/slices/filterSlice";
 
-const SearchInput = ({...props}) => {
+const SearchInput: React.FC = () => {
     const dispatch = useDispatch()
     const [localSearch, setLocalSearch] = React.useState('')
-    const inputRef = React.useRef()
+    const inputRef = React.useRef<HTMLInputElement>(null)
 
     const clearInput = () => {
         dispatch(setSearch(''))
         setLocalSearch('')
-        inputRef.current.focus()
+        inputRef.current?.focus()
     }
 
-    const changeLocalSearch = (e) => {
+    const changeLocalSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setLocalSearch(e.target.value)
         changeGlobalValue(e.target.value)
     }
 
 
     const changeGlobalValue = React.useCallback(
-        debounce((localSearchData) => {
+        debounce((localSearchData: string) => {
             dispatch(setSearch(localSearchData))
         }, 500), []
     )
@@ -33,7 +34,7 @@ const SearchInput = ({...props}) => {
         <div className={styles.searchBar}>
             <img className={styles.search_icon} src={search_icon} alt="search_icon"/>
             <input ref={inputRef} value={localSearch} onChange={changeLocalSearch}
-                   className={styles.input} {...props}/>
+                   className={styles.input} placeholder='Поиск пиццы...'/>
             {localSearch && <img className={styles.clear_icon} src={clear_icon} onClick={clearInput} alt=""/>}
         </div>
     );

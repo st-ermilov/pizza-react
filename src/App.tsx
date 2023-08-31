@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import {Route, Routes} from "react-router-dom";
 import Basket from "./pages/Basket";
 import NotFound from "./pages/NotFound";
-import SinglePizza from "./pages/singlePizza";
+import SinglePizza from "./pages/SinglePizza";
 
 function App() {
     return (
