@@ -1,6 +1,6 @@
 import React from 'react';
-import {useDispatch, useSelector} from "react-redux";
 import {decrementPizza, incrementPizza, removePizza, selectFindItem} from "../redux/slices/basketSlice";
+import {useAppDispatch, useAppSelector} from "../hooks/redux_toolkit_hooks";
 
 type TypeBasketPizzaItem = {
     id: string,
@@ -13,8 +13,8 @@ type TypeBasketPizzaItem = {
     count: number
 }
 const BasketPizzaItem: React.FC<TypeBasketPizzaItem> = ({id, title, price, imageUrl, size, type, basketId}) => {
-    const dispatch = useDispatch()
-    const findCount = useSelector(selectFindItem(basketId))
+    const dispatch = useAppDispatch()
+    const findCount = useAppSelector(selectFindItem(basketId))
     const count = findCount ? findCount.count : 0
     const incPizza = () => {
         dispatch(incrementPizza(basketId))
@@ -22,6 +22,7 @@ const BasketPizzaItem: React.FC<TypeBasketPizzaItem> = ({id, title, price, image
     const decPizza = () => {
         dispatch(decrementPizza(basketId))
     }
+
 
     const deletePizza = () => {
         if (window.confirm('Вы хотите удалить эту позицию из корзины?')) {

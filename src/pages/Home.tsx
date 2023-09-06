@@ -46,7 +46,8 @@ const Home: React.FC = () => {
         fetchData()
 
         window.scrollTo(0, 0)
-    }, [category, sort, currentPage, search])
+    }, [fetchParams])
+
 
     return (
         <div className="content">

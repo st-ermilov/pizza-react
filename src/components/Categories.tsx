@@ -2,7 +2,7 @@ import React from 'react';
 import {setCategory} from "../redux/slices/filterSlice";
 import {useAppDispatch, useAppSelector} from "../hooks/redux_toolkit_hooks";
 
-const Categories: React.FC = () => {
+const Categories: React.FC = React.memo(() => {
     const dispatch = useAppDispatch()
     const categoriesArray: string[] = ['Все', 'Мясные', 'Вегетарианские', 'Гриль', 'Острые', 'Закрытые',]
 
@@ -22,6 +22,6 @@ const Categories: React.FC = () => {
             </ul>
         </div>
     );
-};
+})
 
 export default Categories;

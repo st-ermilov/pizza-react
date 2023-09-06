@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import axios from "axios";
-import {RootState} from "../store";
+import {RootState} from "../store"
 
 type TypeFetchParams = {
     fetchParams: string
@@ -26,14 +26,20 @@ export type TypePrimaryPizzaItem = {
 
 }
 
+enum Status {
+    LOADING = 'loading',
+    SUCCESS = 'success',
+    ERROR = 'error'
+}
+
 type TypePizzasInitialState = {
     pizzas: TypePrimaryPizzaItem[],
-    status: 'loading' | 'success' | 'error'
+    status: Status
 }
 
 const initialState: TypePizzasInitialState = {
     pizzas: [],
-    status: 'loading'
+    status: Status.LOADING
 }
 
 
@@ -47,17 +53,17 @@ const pizzasSlice = createSlice({
     },
     extraReducers: builder => {
         builder.addCase(fetchPizzas.pending, (state) => {
-            state.status = 'loading'
+            state.status = Status.LOADING
             state.pizzas = []
         })
 
         builder.addCase(fetchPizzas.fulfilled, (state, action) => {
-            state.status = 'success'
+            state.status = Status.SUCCESS
             state.pizzas = action.payload
         })
 
         builder.addCase(fetchPizzas.rejected, (state) => {
-            state.status = 'error'
+            state.status = Status.ERROR
             state.pizzas = []
         })
 

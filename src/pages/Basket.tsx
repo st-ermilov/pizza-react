@@ -12,7 +12,6 @@ const Basket: React.FC = () => {
     const allPizzas = pizzaList.reduce((sum: number, item: any) => {
         return sum + item.count
     }, 0)
-
     const clearAll = () => {
         if (window.confirm('Вы точно хотите убрать все товары из корзины?'))
             dispatch(clearBasket())

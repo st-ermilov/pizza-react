@@ -1,16 +1,17 @@
 import React from 'react';
 import pizza_logo from '../assets/img/pizza-logo.svg'
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import SearchInput from "./SearchInput";
-import {useSelector} from "react-redux";
 import {selectPizzaList, selectTotalPrice, TypePizzaItem} from "../redux/slices/basketSlice";
+import {useAppSelector} from "../hooks/redux_toolkit_hooks";
 
 const Header: React.FC = () => {
-    const totalPrice: number = useSelector(selectTotalPrice)
-    const pizzaList: TypePizzaItem[] = useSelector(selectPizzaList)
+    const totalPrice: number = useAppSelector(selectTotalPrice)
+    const pizzaList: TypePizzaItem[] = useAppSelector(selectPizzaList)
     const allPizzas = pizzaList.reduce((sum: number, item: any) => {
         return sum + item.count
     }, 0)
+    const location = useLocation()
     return (
         <div className="header">
             <div className="container">
@@ -21,7 +22,7 @@ const Header: React.FC = () => {
                         <p>Самая вкусная пицца во Вселенной</p>
                     </div>
                 </Link>
-                <SearchInput/>
+                {location.pathname === '/' && <SearchInput/>}
                 <div className="header__cart">
                     <Link to="/basket" className="button button--cart">
                         <span>{totalPrice} ₽</span>
