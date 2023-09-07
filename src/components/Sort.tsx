@@ -9,7 +9,7 @@ type TypeSortCategory = {
 type TypePopUp = MouseEvent & {
     composedPath: Node[]
 }
-const Sort: React.FC = React.memo(() => {
+export const Sort: React.FC = React.memo(() => {
         const dispatch = useAppDispatch()
         const [openModal, setOpenModal] = React.useState(false)
 
@@ -84,4 +84,3 @@ const Sort: React.FC = React.memo(() => {
         );
     }
 )
-export default Sort;

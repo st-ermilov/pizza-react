@@ -2,7 +2,7 @@ import React from 'react';
 import angry from '../assets/img/angry.svg'
 import styles from '../styles/components/error.module.scss'
 
-const Error: React.FC = () => {
+export const Error: React.FC = () => {
     return (
         <div className={styles.error_container}>
             <h2>Ошибка</h2>
@@ -12,4 +12,3 @@ const Error: React.FC = () => {
     );
 };
 
-export default Error;

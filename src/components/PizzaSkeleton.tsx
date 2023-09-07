@@ -1,7 +1,7 @@
 import React from "react"
 import ContentLoader from "react-content-loader"
 
-const PizzaSkeleton: React.FC = ({...props}) => (
+export const PizzaSkeleton: React.FC = ({...props}) => (
     <ContentLoader
         className='pizza-block'
         speed={2}
@@ -20,4 +20,3 @@ const PizzaSkeleton: React.FC = ({...props}) => (
     </ContentLoader>
 )
 
-export default PizzaSkeleton

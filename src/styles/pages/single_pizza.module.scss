@@ -85,5 +85,13 @@
   }
 }
 
+.nav_btns {
+  display: flex;
+  gap: 20px;
+
+  & > * {
+    margin: 0;
+  }
+}
 
 

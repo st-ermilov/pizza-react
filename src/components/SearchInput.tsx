@@ -1,5 +1,4 @@
 import React from 'react';
-// @ts-ignore
 import debounce from 'lodash.debounce'
 import styles from '../styles/components/search_input.module.scss'
 import search_icon from '../assets/img/search_icon.svg'
@@ -7,7 +6,7 @@ import clear_icon from '../assets/img/clear_icon.svg'
 import {setSearch} from "../redux/slices/filterSlice";
 import {useAppDispatch} from "../hooks/redux_toolkit_hooks";
 
-const SearchInput: React.FC = () => {
+export const SearchInput: React.FC = () => {
     const dispatch = useAppDispatch()
     const [localSearch, setLocalSearch] = React.useState('')
     const inputRef = React.useRef<HTMLInputElement>(null)
@@ -40,4 +39,3 @@ const SearchInput: React.FC = () => {
     );
 };
 
-export default SearchInput;

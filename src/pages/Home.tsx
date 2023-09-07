@@ -1,16 +1,15 @@
 import React from 'react';
-import Categories from "../components/Categories";
-import Sort from "../components/Sort";
-import PizzaItem from "../components/PizzaItem";
-import PizzaSkeleton from "../components/PizzaSkeleton";
-import Pagination from "../components/Pagination";
+import {Categories, Error, Pagination, PizzaItem, PizzaSkeleton, Sort} from '../components'
 import {selectCategory, selectCurrentPage, selectSearch, selectSort, setCurrentPage} from "../redux/slices/filterSlice";
 import {fetchPizzas, selectPizzas, selectStatus} from '../redux/slices/pizzasSlice'
-import Error from "../components/Error";
 import {useAppDispatch, useAppSelector} from "../hooks/redux_toolkit_hooks";
+import {useSearchParams} from "react-router-dom";
 
 const Home: React.FC = () => {
     const dispatch = useAppDispatch()
+
+    const [searchParamsUrl, setSearchParamsUrl] = useSearchParams()
+
     const pizzas = useAppSelector(selectPizzas)
 
     const status = useAppSelector(selectStatus)
@@ -39,12 +38,13 @@ const Home: React.FC = () => {
 
     const fetchParams = `${pagesParams}&${categoryParams}&${sortParams}&${searchParams}`
 
+
     React.useEffect(() => {
         const fetchData = async () => {
             dispatch(fetchPizzas({fetchParams}))
         }
         fetchData()
-
+        setSearchParamsUrl(fetchParams)
         window.scrollTo(0, 0)
     }, [fetchParams])
 

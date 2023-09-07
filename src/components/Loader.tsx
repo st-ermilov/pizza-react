@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../styles/components/loader.module.scss'
 
-const Loader: React.FC = () => {
+export const Loader: React.FC = () => {
     return (
         <div className={styles.loader_container}>
             <div className={styles.loader}></div>
@@ -9,4 +9,3 @@ const Loader: React.FC = () => {
     );
 };
 
-export default Loader;

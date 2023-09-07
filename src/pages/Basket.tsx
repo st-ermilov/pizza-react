@@ -1,9 +1,9 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import BasketPizzaItem from "../components/BasketPizzaItem";
+import {BasketPizzaItem, EmptyBasket} from "../components";
 import {clearBasket, selectPizzaList, selectTotalPrice, TypePizzaItem} from "../redux/slices/basketSlice";
-import EmptyBasket from "../components/EmptyBasket";
+
 
 const Basket: React.FC = () => {
     const dispatch = useDispatch()

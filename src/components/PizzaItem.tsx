@@ -11,7 +11,7 @@ type TypePizzaItemProps = {
     sizes: number[],
     types: number[],
 }
-const PizzaItem: React.FC<TypePizzaItemProps> = ({id, title, price, imageUrl, sizes, types}) => {
+export const PizzaItem: React.FC<TypePizzaItemProps> = ({id, title, price, imageUrl, sizes, types}) => {
     const dispatch = useAppDispatch()
 
     // const findCount = useAppSelector(selectFindItem(basketId))
@@ -85,4 +85,3 @@ const PizzaItem: React.FC<TypePizzaItemProps> = ({id, title, price, imageUrl, si
     );
 };
 
-export default PizzaItem;

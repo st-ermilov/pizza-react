@@ -12,3 +12,7 @@ declare module '*.svg' {
     const images_svg: any;
     export default images_svg;
 }
+declare module 'lodash.debounce' {
+    const debounce: any;
+    export default debounce
+}

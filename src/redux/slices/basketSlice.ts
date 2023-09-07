@@ -1,5 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {RootState} from "../store";
+import {totalPrice} from "../../utils/totalPrice";
 
 export type TypePizzaItem = {
     id: string,
@@ -36,9 +37,7 @@ const basketSlice = createSlice({
             } else {
                 state.pizzaList.push({...action.payload, count: 1})
             }
-            state.totalPrice = state.pizzaList.reduce((sum, obj) => {
-                return obj.price * obj.count + sum
-            }, 0)
+            state.totalPrice = totalPrice(state.pizzaList);
         },
 
         incrementPizza: (state, action: PayloadAction<string>) => {
@@ -48,9 +47,7 @@ const basketSlice = createSlice({
             if (findItem) {
                 findItem.count++
             }
-            state.totalPrice = state.pizzaList.reduce((sum, obj) => {
-                return obj.price * obj.count + sum
-            }, 0)
+            state.totalPrice = totalPrice(state.pizzaList);
         },
 
 
@@ -63,18 +60,14 @@ const basketSlice = createSlice({
                 findItem.count--
             }
 
-            state.totalPrice = state.pizzaList.reduce((sum, obj) => {
-                return obj.price * obj.count + sum
-            }, 0)
+            state.totalPrice = totalPrice(state.pizzaList);
         },
 
         removePizza: (state, action: PayloadAction<string>) => {
             state.pizzaList = state.pizzaList.filter((pizza) =>
                 pizza.basketId !== action.payload
             )
-            state.totalPrice = state.pizzaList.reduce((sum, obj) => {
-                return obj.price * obj.count + sum
-            }, 0)
+            state.totalPrice = totalPrice(state.pizzaList);
         },
 
         clearBasket: (state) => {

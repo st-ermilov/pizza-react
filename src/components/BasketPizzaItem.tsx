@@ -12,7 +12,7 @@ type TypeBasketPizzaItem = {
     basketId: string,
     count: number
 }
-const BasketPizzaItem: React.FC<TypeBasketPizzaItem> = ({id, title, price, imageUrl, size, type, basketId}) => {
+export const BasketPizzaItem: React.FC<TypeBasketPizzaItem> = ({id, title, price, imageUrl, size, type, basketId}) => {
     const dispatch = useAppDispatch()
     const findCount = useAppSelector(selectFindItem(basketId))
     const count = findCount ? findCount.count : 0
@@ -91,4 +91,3 @@ const BasketPizzaItem: React.FC<TypeBasketPizzaItem> = ({id, title, price, image
     );
 };
 
-export default BasketPizzaItem;

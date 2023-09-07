@@ -1,11 +1,12 @@
 import './styles/app.scss'
-import Header from "./components/Header";
+import {Header, Loader} from "./components";
 import React from "react";
 import Home from "./pages/Home";
 import {Route, Routes} from "react-router-dom";
-import Basket from "./pages/Basket";
-import NotFound from "./pages/NotFound";
-import SinglePizza from "./pages/SinglePizza";
+
+const Basket = React.lazy(() => import(/* webpackChunkName: 'Basket'*/'./pages/Basket'));
+const SinglePizza = React.lazy(() => import(/* webpackChunkName: 'SinglePizza'*/'./pages/SinglePizza'))
+const NotFound = React.lazy(() => import(/* webpackChunkName: 'NotFound'*/'./pages/NotFound'))
 
 function App() {
     return (
@@ -14,9 +15,11 @@ function App() {
                 <Header/>
                 <Routes>
                     <Route path='/' element={<Home/>}/>
-                    <Route path='/basket' element={<Basket/>}/>
-                    <Route path='/pizza/:id' element={<SinglePizza/>}/>
-                    <Route path='*' element={<NotFound/>}/>
+                    <Route path='/basket'
+                           element={<React.Suspense fallback={<Loader/>}><Basket/></React.Suspense>}/>
+                    <Route path='/pizza/:id'
+                           element={<React.Suspense fallback={<Loader/>}><SinglePizza/></React.Suspense>}/>
+                    <Route path='*' element={<React.Suspense fallback={<Loader/>}><NotFound/></React.Suspense>}/>
                 </Routes>
             </div>
         </div>

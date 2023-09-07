@@ -1,11 +1,11 @@
 import React from 'react';
 import pizza_logo from '../assets/img/pizza-logo.svg'
 import {Link, useLocation} from "react-router-dom";
-import SearchInput from "./SearchInput";
+import {SearchInput} from "../components";
 import {selectPizzaList, selectTotalPrice, TypePizzaItem} from "../redux/slices/basketSlice";
 import {useAppSelector} from "../hooks/redux_toolkit_hooks";
 
-const Header: React.FC = () => {
+export const Header: React.FC = () => {
     const totalPrice: number = useAppSelector(selectTotalPrice)
     const pizzaList: TypePizzaItem[] = useAppSelector(selectPizzaList)
     const allPizzas = pizzaList.reduce((sum: number, item: any) => {
