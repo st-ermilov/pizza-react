@@ -1,7 +1,7 @@
 import React from 'react';
-import {addPizza, TypePizzaItem} from "../redux/slices/basketSlice";
+import {addPizza, buttonCount, selectFindItemById, TypePizzaItem} from "../redux/slices/basketSlice";
 import {Link} from "react-router-dom";
-import {useAppDispatch} from "../hooks/redux_toolkit_hooks";
+import {useAppDispatch, useAppSelector} from "../hooks/redux_toolkit_hooks";
 
 type TypePizzaItemProps = {
     id: string;
@@ -14,13 +14,12 @@ type TypePizzaItemProps = {
 export const PizzaItem: React.FC<TypePizzaItemProps> = ({id, title, price, imageUrl, sizes, types}) => {
     const dispatch = useAppDispatch()
 
-    // const findCount = useAppSelector(selectFindItem(basketId))
-    // const count = findCount ? findCount.count : 0
-
-    const [count, setCount] = React.useState(0)
     const [activeType, setActiveType] = React.useState(0)
     const [activeSize, setActiveSize] = React.useState(0)
     const doughType = ['тонкое', 'традиционное']
+
+    const findCount = useAppSelector(selectFindItemById(id))
+    const btnCount = findCount ? findCount.btnCount : 0
 
 
     const addPizzaItem = () => {
@@ -32,11 +31,13 @@ export const PizzaItem: React.FC<TypePizzaItemProps> = ({id, title, price, image
             type: doughType[activeType],
             size: sizes[activeSize],
             basketId: `${id + sizes[activeSize] + doughType[activeType]}}`,
-            count: 0
+            count: 0,
+            btnCount: 0
         }
         dispatch(addPizza(pizzaItem))
-        setCount(count + 1)
+        dispatch(buttonCount(pizzaItem))
     }
+
 
     return (
         <div className="pizza-block">
@@ -78,7 +79,7 @@ export const PizzaItem: React.FC<TypePizzaItemProps> = ({id, title, price, image
                         />
                     </svg>
                     <span>Добавить</span>
-                    {count > 0 && <i>{count}</i>}
+                    {btnCount > 0 && <i>{btnCount}</i>}
                 </div>
             </div>
         </div>

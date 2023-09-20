@@ -10,6 +10,7 @@ export type TypePizzaItem = {
     size: number,
     type: string,
     count: number,
+    btnCount: number,
     basketId: string
 }
 
@@ -39,6 +40,18 @@ const basketSlice = createSlice({
             }
             state.totalPrice = totalPrice(state.pizzaList);
         },
+
+        buttonCount: (state, action: PayloadAction<TypePizzaItem>) => {
+            const findItem = state.pizzaList.find((item) =>
+                item.id === action.payload.id
+            )
+            if (findItem) {
+                findItem.btnCount++
+            } else {
+                state.pizzaList.push({...action.payload, btnCount: 1})
+            }
+        },
+
 
         incrementPizza: (state, action: PayloadAction<string>) => {
             const findItem = state.pizzaList.find((item) =>
@@ -82,12 +95,15 @@ export const selectTotalPrice = (state: RootState) => state.basket.totalPrice
 
 export const selectFindItem = (basketId: string) => (state: RootState) => state.basket.pizzaList.find((item: TypePizzaItem) => item.basketId === basketId)
 
+export const selectFindItemById = (id: string) => (state: RootState) => state.basket.pizzaList.find((item: TypePizzaItem) => item.id === id)
+
 export const {
     addPizza,
     removePizza,
     clearBasket,
     incrementPizza,
-    decrementPizza
+    decrementPizza,
+    buttonCount
 } = basketSlice.actions
 
 export default basketSlice.reducer

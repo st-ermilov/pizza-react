@@ -4,14 +4,14 @@ import axios from "axios";
 import styles from '../styles/pages/single_pizza.module.scss'
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {addPizza, TypePizzaItem} from "../redux/slices/basketSlice";
+import {addPizza, buttonCount, selectFindItemById, TypePizzaItem} from "../redux/slices/basketSlice";
 import {Loader} from "../components";
 import {TypePrimaryPizzaItem} from "../redux/slices/pizzasSlice";
+import {useAppSelector} from "../hooks/redux_toolkit_hooks";
 
 const SinglePizza: React.FC = () => {
     const dispatch = useDispatch()
     const doughType: string[] = ['тонкое', 'традиционное']
-    const [count, setCount] = React.useState(0)
 
 
     const [pizza, setPizza] = React.useState<TypePrimaryPizzaItem>()
@@ -20,6 +20,11 @@ const SinglePizza: React.FC = () => {
 
     const {id} = useParams()
     const navigate = useNavigate()
+
+
+    const findCount = useAppSelector(selectFindItemById(id ? id : ''))
+    const btnCount = findCount ? findCount.btnCount : 0
+
 
     React.useEffect(() => {
         const getSinglePizza = async () => {
@@ -49,10 +54,11 @@ const SinglePizza: React.FC = () => {
             type: doughType[activeType],
             size: pizza.sizes[activeSize],
             basketId: `${id ? id + pizza.sizes[activeSize] : ''}`,
-            count: 0
+            count: 0,
+            btnCount: 0
         }
         dispatch(addPizza(pizzaItem))
-        setCount(count + 1)
+        dispatch(buttonCount(pizzaItem))
     }
 
 
@@ -124,7 +130,7 @@ const SinglePizza: React.FC = () => {
                                     />
                                 </svg>
                                 <span>Добавить</span>
-                                {count > 0 && <i>{count}</i>}
+                                {btnCount > 0 && <i>{btnCount}</i>}
                             </div>
                         </div>
 
