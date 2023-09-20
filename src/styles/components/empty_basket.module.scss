@@ -1,0 +1,54 @@
+@import '../variables';
+
+
+.empty_basket {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+  & p {
+    text-align: center;
+  }
+
+  & img {
+    width: 400px;
+
+    @media (max-width: 540px) {
+      width: 200px;
+    }
+  }
+}
+
+.button_black {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 210px;
+  border: 1px solid $gray-line;
+  border-radius: 20px;
+  margin-bottom: 30px;
+  padding: 15px 20px;
+
+
+  @media(max-width: 320px) {
+    padding: 10px;
+  }
+
+  border-color: darken($color: $gray-line, $amount: 10);
+
+  span {
+    color: darken($color: $gray-line, $amount: 20);
+    font-weight: 500;
+  }
+
+  &:hover {
+    background-color: darken($color: $gray-line, $amount: 90);
+    border-color: darken($color: $gray-line, $amount: 90);
+
+    span {
+      color: $gray-line;
+    }
+  }
+}
+
