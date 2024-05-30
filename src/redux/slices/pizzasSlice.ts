@@ -9,7 +9,7 @@ export const fetchPizzas = createAsyncThunk<TypePrimaryPizzaItem[], TypeFetchPar
     'pizzas/fetchPizzasStatus',
     async (params) => {
         const {fetchParams} = params
-        const {data} = await axios.get<TypePrimaryPizzaItem[]>(`https://647734419233e82dd53b241b.mockapi.io/pizza_array?${fetchParams}`)
+        const {data} = await axios.get<TypePrimaryPizzaItem[]>(`https://66582d845c3617052647319b.mockapi.io/pizzas-array?${fetchParams}`)
         return data
     }
 )

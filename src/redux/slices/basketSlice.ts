@@ -38,6 +38,7 @@ const basketSlice = createSlice({
                 state.pizzaList.push({...action.payload, count: 1})
             }
             state.totalPrice = totalPrice(state.pizzaList);
+
         },
 
         incrementPizza: (state, action: PayloadAction<string>) => {
