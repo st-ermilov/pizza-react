@@ -1,10 +1,13 @@
 .searchBar {
   position: relative;
   display: flex;
+  width: 100%;
+  max-width: 300px;
 }
 
 .input {
-  width: 300px;
+  width: 100%;
+  max-width: 300px;
   height: 40px;
   outline: none;
   border: 1px solid black;

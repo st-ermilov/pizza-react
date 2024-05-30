@@ -24,7 +24,7 @@ const SinglePizza: React.FC = () => {
     React.useEffect(() => {
         const getSinglePizza = async () => {
             try {
-                const response = await axios.get(`https://647734419233e82dd53b241b.mockapi.io/pizza_array/${id}`)
+                const response = await axios.get(`https://66582d845c3617052647319b.mockapi.io/pizzas-array/${id}`)
                 setPizza(response.data)
             } catch (error) {
                 alert(`Произошла ошибка:${error}`)

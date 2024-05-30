@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {Link} from "react-router-dom";
 import empty_basket from '../assets/img/empty-cart.png'
+import styles from '../styles/pages/empty_cart.module.scss'
 
 export const EmptyBasket: React.FC = () => {
     return (
@@ -10,7 +11,7 @@ export const EmptyBasket: React.FC = () => {
                 Вероятней всего, вы не заказывали ещё пиццу.<br/>
                 Для того, чтобы заказать пиццу, перейди на главную страницу.
             </p>
-            <img src={empty_basket} alt="Empty cart"/>
+            <img className={styles.cart_img} src={empty_basket} alt="Empty cart"/>
             <Link to="/" className="button button--black">
                 <span>Вернуться назад</span>
             </Link>

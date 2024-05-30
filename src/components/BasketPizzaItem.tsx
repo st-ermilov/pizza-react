@@ -24,6 +24,7 @@ export const BasketPizzaItem: React.FC<TypeBasketPizzaItem> = ({id, title, price
     }
 
 
+    console.log(imageUrl)
     const deletePizza = () => {
         if (window.confirm('Вы хотите удалить эту позицию из корзины?')) {
             dispatch(removePizza(basketId))

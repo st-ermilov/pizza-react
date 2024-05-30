@@ -9,9 +9,27 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
 
+  @media screen and (max-width: 1160px) {
+    grid-template-columns: 1fr;
+
+  }
+
   .first_column {
     display: grid;
     justify-items: center;
+
+    & img {
+      width: 100%;
+
+      @media screen and (max-width: 1160px) {
+        width: 50%;
+
+      }
+      @media screen and (max-width: 768px) {
+        width: 100%;
+
+      }
+    }
 
   }
 
@@ -42,6 +60,7 @@
     border-radius: 10px;
     flex-direction: column;
     padding: 6px;
+
 
     ul {
       display: flex;
@@ -75,6 +94,13 @@
     align-items: center;
     justify-content: space-between;
     margin-top: 20px;
+    margin-bottom: 20px;
+
+    @media screen and (max-width: 670px) {
+      flex-direction: column;
+      gap: 20px;
+
+    }
   }
 
   &__price {
@@ -88,6 +114,10 @@
 .nav_btns {
   display: flex;
   gap: 20px;
+  @media screen and (max-width: 670px) {
+    flex-direction: column-reverse;
+
+  }
 
   & > * {
     margin: 0;

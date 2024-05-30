@@ -14,8 +14,6 @@ type TypePizzaItemProps = {
 export const PizzaItem: React.FC<TypePizzaItemProps> = ({id, title, price, imageUrl, sizes, types}) => {
     const dispatch = useAppDispatch()
 
-    // const findCount = useAppSelector(selectFindItem(basketId))
-    // const count = findCount ? findCount.count : 0
 
     const [count, setCount] = React.useState(0)
     const [activeType, setActiveType] = React.useState(0)

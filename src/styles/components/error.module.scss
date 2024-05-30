@@ -4,13 +4,14 @@
   align-items: center;
   justify-items: center;
   gap: 15px;
-  width: 100vw;
+  width: 100%;
 
   & img {
-    width: 140px;
+    width: 80%;
+    max-width: 400px;
   }
 
-  & h2 {
-
+  & p {
+    text-align: center;
   }
 }
